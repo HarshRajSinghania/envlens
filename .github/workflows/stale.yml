@@ -1,0 +1,33 @@
+name: Stale
+
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v9
+        with:
+          days-before-stale: 30
+          days-before-close: 14
+          days-before-issue-stale: 45
+          days-before-issue-close: 21
+          stale-issue-label: 'stale'
+          stale-pr-label: 'stale'
+          exempt-issue-labels: 'pinned,security,good first issue,help wanted'
+          exempt-pr-labels: 'pinned,security,blocked'
+          stale-issue-message: >
+            No activity for 45 days. Comment with a status update and this stays open.
+            Otherwise it closes in 21 days — reopen any time.
+          stale-pr-message: >
+            No activity for 30 days. Rebase and push, or say it is dead, and it closes in 14.
+          close-issue-message: 'Closed for inactivity. Reopen with fresh context.'
+          close-pr-message: 'Closed for inactivity. Reopen when you are ready to land it.'
+          remove-stale-when-updated: true
