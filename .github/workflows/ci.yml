@@ -62,7 +62,7 @@ jobs:
       - name: Drift exits 1
         run: |
           set +e
-          python envlens.py check --example examples/.env.example --actual examples/.env
+          python envlens.py check --example examples/.env.example --actual examples/.env --strict
           code=$?
           test "$code" -eq 1 || { echo "expected exit 1, got $code"; exit 1; }
       - name: JSON is parseable
