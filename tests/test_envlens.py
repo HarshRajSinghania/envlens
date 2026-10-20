@@ -249,12 +249,8 @@ class CliTests(unittest.TestCase):
 
 
     def test_multiple_actual_one_clean_one_drift(self) -> None:
-        clean = self.write("clean.env", "HOST=x
-PORT=5432
-SECRET_KEY=abc
-")
-        drift = self.write("drift.env", "HOST=x
-")  # missing PORT and SECRET_KEY
+        clean = self.write("clean.env", "HOST=x\nPORT=5432\nSECRET_KEY=abc\n")
+        drift = self.write("drift.env", "HOST=x\n")  # missing PORT and SECRET_KEY
         code, out, _ = self.run_cli([
             "check", "--example", str(self.example),
             "--actual", str(clean), "--actual", str(drift)
@@ -264,12 +260,8 @@ SECRET_KEY=abc
         self.assertIn("missing", out)
 
     def test_multiple_actual_json(self) -> None:
-        clean = self.write("clean.env", "HOST=x
-PORT=5432
-SECRET_KEY=abc
-")
-        drift = self.write("drift.env", "HOST=x
-")
+        clean = self.write("clean.env", "HOST=x\nPORT=5432\nSECRET_KEY=abc\n")
+        drift = self.write("drift.env", "HOST=x\n")
         code, out, _ = self.run_cli([
             "check", "--example", str(self.example),
             "--actual", str(clean), "--actual", str(drift),

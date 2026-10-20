@@ -215,14 +215,13 @@ class Finding:
     key: str
     detail: str
     severity: str  # error | warning
-    source: str = ""  # path of the actual file this finding comes from
+    source: str = ""
 
     def as_dict(self) -> dict[str, str]:
         d = {"kind": self.kind, "key": self.key, "detail": self.detail, "severity": self.severity}
         if self.source:
             d["source"] = self.source
         return d
-
 
 def check(example: EnvFile, actual: EnvFile, strict: bool, allow_extra: bool) -> list[Finding]:
     findings: list[Finding] = []
@@ -354,7 +353,7 @@ def cmd_check(args: argparse.Namespace) -> int:
         findings = check(example, actual, strict=args.strict, allow_extra=args.allow_extra)
         for f in findings:
             f.source = str(actual.path)
-            if f.detail and not str(actual.path) in f.detail:
+            if f.detail and str(actual.path) not in f.detail:
                 f.detail = f"{actual.path}: {f.detail}"
         all_findings.extend(findings)
 
@@ -378,22 +377,18 @@ def cmd_check(args: argparse.Namespace) -> int:
         print(
             render_md(findings)
             if findings
-            else "| severity | kind | key | detail |
-| --- | --- | --- | --- |
-| ok | — | — | no drift |"
+            else "| severity | kind | key | detail |\n| --- | --- | --- | --- |\n| ok | — | — | no drift |"
         )
     else:
         paths = ", ".join(str(a.path) for a in actuals)
         print(f"envlens {example.path} vs {paths}")
         print(render_text(findings) if findings else "  ok           no drift")
-        print(f"
-{errors} error(s), {warnings} warning(s)")
+        print(f"\n{errors} error(s), {warnings} warning(s)")
 
     # parse failure is not drift: a broken file must never read as a clean pass
     if parse_failed:
         return EXIT_USAGE
     return EXIT_DRIFT if errors else EXIT_OK
-
 
 def cmd_diff(args: argparse.Namespace) -> int:
     try:
