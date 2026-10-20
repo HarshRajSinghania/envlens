@@ -42,7 +42,7 @@ Method: {{BENCH_METHOD}}, script in the repo under bench/.
 Happy to answer on the design. The main thing I got wrong first was {{MISTAKE}},
 which is why the API looks the way it does now.
 
-https://github.com/your-handle/envlens
+https://github.com/n5za/envlens
 ```
 
 ## r/en_US.UTF-8 post shape

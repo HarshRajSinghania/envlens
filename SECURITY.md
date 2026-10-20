@@ -13,7 +13,7 @@
 Do **not** open a public issue.
 
 - Email: `security@example.com`
-- Or use GitHub private advisory: <https://github.com/your-handle/envlens/security/advisories/new>
+- Or use GitHub private advisory: <https://github.com/n5za/envlens/security/advisories/new>
 
 Include: affected version, reproduction, impact, and whether the issue is already public.
 

@@ -9,7 +9,7 @@ description = "Detect env-file drift before it breaks a deploy."
 readme = "README.md"
 requires-python = ">=3.9"
 license = "MIT"
-authors = [{ name = "your-handle" }]
+authors = [{ name = "n5za" }]
 keywords = ["dotenv", "env", "configuration", "cli", "devops"]
 classifiers = [
   "Environment :: Console",
@@ -27,9 +27,9 @@ dev = ["ruff>=0.6", "mypy>=1.10"]
 envlens = "envlens:main"
 
 [project.urls]
-Homepage = "https://github.com/your-handle/envlens"
-Issues = "https://github.com/your-handle/envlens/issues"
-Changelog = "https://github.com/your-handle/envlens/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/n5za/envlens"
+Issues = "https://github.com/n5za/envlens/issues"
+Changelog = "https://github.com/n5za/envlens/blob/main/CHANGELOG.md"
 
 [tool.setuptools]
 py-modules = ["envlens"]

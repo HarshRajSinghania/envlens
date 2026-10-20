@@ -11,7 +11,7 @@
 ## Setup
 
 ```bash
-git clone https://github.com/your-handle/envlens.git
+git clone https://github.com/n5za/envlens.git
 cd envlens
 make install
 make check
@@ -54,7 +54,7 @@ The body explains motivation. The diff already shows the mechanics.
 
 ## Review
 
-- Reviewers respond within 72h. If nobody has, ping `@your-handle` once — not three times.
+- Reviewers respond within 72h. If nobody has, ping `@n5za` once — not three times.
 - Address comments with a new commit, not a force-push mid-review. Squash at the end.
 - A red CI is the author's problem until it is green.
 

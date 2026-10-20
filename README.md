@@ -1,9 +1,9 @@
 # envlens
 
-[![CI](https://github.com/your-handle/envlens/actions/workflows/ci.yml/badge.svg)](https://github.com/your-handle/envlens/actions/workflows/ci.yml)
+[![CI](https://github.com/n5za/envlens/actions/workflows/ci.yml/badge.svg)](https://github.com/n5za/envlens/actions/workflows/ci.yml)
 [![PyPI](https://img.shields.io/pypi/v/envlens)](https://pypi.org/project/envlens/)
 [![Python](https://img.shields.io/pypi/pyversions/envlens)](https://pypi.org/project/envlens/)
-[![License](https://img.shields.io/github/license/your-handle/envlens)](LICENSE)
+[![License](https://img.shields.io/github/license/n5za/envlens)](LICENSE)
 
 **Find the env var that is missing before your deploy does.**
 
@@ -18,7 +18,7 @@ pipx install envlens
 # or
 pip install envlens
 # or, no install at all
-curl -O https://raw.githubusercontent.com/your-handle/envlens/main/envlens.py
+curl -O https://raw.githubusercontent.com/n5za/envlens/main/envlens.py
 python envlens.py --help
 ```
 
@@ -117,7 +117,7 @@ Exit codes: `0` clean, `1` drift, `2` usage or parse error.
 ## Development
 
 ```bash
-git clone https://github.com/your-handle/envlens
+git clone https://github.com/n5za/envlens
 cd envlens
 make check     # compileall + ruff + unittest
 make demo      # runs against examples/
@@ -127,7 +127,7 @@ make demo      # runs against examples/
 
 ## Contributing
 
-Start with a [`good first issue`](https://github.com/your-handle/envlens/labels/good%20first%20issue).
+Start with a [`good first issue`](https://github.com/n5za/envlens/labels/good%20first%20issue).
 [CONTRIBUTING.md](CONTRIBUTING.md) is short.
 
 ## Security

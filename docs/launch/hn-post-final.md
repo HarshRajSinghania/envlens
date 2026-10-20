@@ -47,7 +47,7 @@ What it deliberately does not do: types, YAML/TOML/JSON, secret scanning of git 
 
 28 tests, stdlib unittest, Python 3.9+.
 
-Repo: https://github.com/your-handle/envlens
+Repo: https://github.com/n5za/envlens
 
 Things I am unsure about and would rather hear now:
 - Should a key that is empty in .env.example be treated as optional or required? I

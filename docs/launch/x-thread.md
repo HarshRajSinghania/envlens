@@ -8,7 +8,7 @@ Post as a thread with the repo link in the first tweet and in the last. Pin it.
 1/ I got tired of writing {{PROBLEM}} in every project.
    So I built envlens — Find missing env vars before your deploy does.
    Free, MIT, no account.
-   github.com/your-handle/envlens
+   github.com/n5za/envlens
 ```
 
 ```
@@ -53,7 +53,7 @@ Post as a thread with the repo link in the first tweet and in the last. Pin it.
 
 ```
 8/ Repo, docs, examples:
-   github.com/your-handle/envlens
+   github.com/n5za/envlens
    Star it if it saves you the boilerplate — issue if it doesn't work.
 ```
 

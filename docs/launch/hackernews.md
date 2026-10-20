@@ -41,7 +41,7 @@ It is at v0.1 and the API will move. The parts I am least sure about:
 
 Would rather hear it is wrong now than after 1.0.
 
-Repo: https://github.com/your-handle/envlens
+Repo: https://github.com/n5za/envlens
 ```
 
 Naming your own weak points is the single highest-leverage move on HN. It converts

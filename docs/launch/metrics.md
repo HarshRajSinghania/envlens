@@ -7,16 +7,16 @@ and double the one that does.
 
 ```bash
 # traffic, last 14 days
-gh api repos/your-handle/envlens/traffic/views
+gh api repos/n5za/envlens/traffic/views
 
 # clones — the only star-adjacent number that means anything
-gh api repos/your-handle/envlens/traffic/clones
+gh api repos/n5za/envlens/traffic/clones
 
 # referrers — where the traffic actually came from
-gh api repos/your-handle/envlens/traffic/popular/referrers
+gh api repos/n5za/envlens/traffic/popular/referrers
 
 # stars, forks, watchers
-gh api repos/your-handle/envlens --jq '{stars:.stargazers_count,forks:.forks_count,watchers:.subscribers_count,issues:.open_issues_count}'
+gh api repos/n5za/envlens --jq '{stars:.stargazers_count,forks:.forks_count,watchers:.subscribers_count,issues:.open_issues_count}'
 ```
 
 Note: traffic API needs push access and only returns 14 days.

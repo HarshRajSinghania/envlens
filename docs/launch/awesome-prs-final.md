@@ -15,7 +15,7 @@ Section: **DevOps Tools** (alphabetical, `envlens` goes after `doitlive`).
 Entry line, matching the list's style:
 
 ```markdown
-- [envlens](https://github.com/your-handle/envlens) - Detect missing, empty, and undocumented environment variables by comparing against `.env.example`.
+- [envlens](https://github.com/n5za/envlens) - Detect missing, empty, and undocumented environment variables by comparing against `.env.example`.
 ```
 
 PR title: `Add envlens to DevOps Tools`
@@ -35,7 +35,7 @@ It belongs under DevOps Tools because the failure it catches is a deploy-time fa
 Section: **Utilities**.
 
 ```markdown
-- [envlens](https://github.com/your-handle/envlens) - Find missing or empty environment variables before a deploy.
+- [envlens](https://github.com/n5za/envlens) - Find missing or empty environment variables before a deploy.
 ```
 
 PR title: `Add envlens to Utilities`
@@ -61,7 +61,7 @@ not belong. Skip unless a maintainer says otherwise.
 Section: **Tools**.
 
 ```markdown
-- [envlens](https://github.com/your-handle/envlens) - Report missing, empty, and undocumented env vars before deploy.
+- [envlens](https://github.com/n5za/envlens) - Report missing, empty, and undocumented env vars before deploy.
 ```
 
 PR title: `Add envlens`
@@ -85,7 +85,7 @@ Section: **Developer Tools** — only if you ship a Homebrew formula. Otherwise 
 Section: **Tools**.
 
 ```markdown
-- [envlens](https://github.com/your-handle/envlens) - Detect environment variable drift before deployment.
+- [envlens](https://github.com/n5za/envlens) - Detect environment variable drift before deployment.
 ```
 
 PR title: `Add envlens to Tools`
@@ -125,7 +125,7 @@ envlens compares a real environment against .env.example and exits non-zero when
 required key is missing, a key is empty, or a key is undocumented. Stdlib Python, MIT,
 28 tests, zero network calls.
 
-Repo: https://github.com/your-handle/envlens
+Repo: https://github.com/n5za/envlens
 Demo, 40 seconds: `pipx install envlens && envlens check --example examples/.env.example --actual examples/.env`
 ```
 
