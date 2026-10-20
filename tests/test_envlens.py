@@ -33,7 +33,7 @@ class ParserTests(unittest.TestCase):
         self.assertEqual(env.errors, [])
 
     def test_quoted_values_keep_hash(self) -> None:
-        p = self.write("a.env", 'A="x # not a comment"\nB=\'y # also not\'\n')
+        p = self.write("a.env", "A=\"x # not a comment\"\nB='y # also not'\n")
         env = envlens.parse_dotenv(p)
         self.assertEqual(env.get("A"), "x # not a comment")
         self.assertEqual(env.get("B"), "y # also not")

@@ -15,9 +15,9 @@ import argparse
 import json
 import re
 import sys
+from collections.abc import Iterable, Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Iterable, Sequence
 
 __version__ = "0.1.0"
 
@@ -319,7 +319,9 @@ def render_docs(env: EnvFile) -> str:
     rows = ["| Variable | Required | Default | Notes |", "| --- | --- | --- | --- |"]
     for key, entry in env.entries.items():
         required = "no" if entry.value == "" else "yes"
-        default = "—" if entry.value == "" else (mask_value(key, entry.value) if is_secret_key(key) else f"`{entry.value}`")
+        default = (
+            "—" if entry.value == "" else (mask_value(key, entry.value) if is_secret_key(key) else f"`{entry.value}`")
+        )
         rows.append(f"| `{key}` | {required} | {default} | |")
     return "\n".join(rows)
 
@@ -359,7 +361,11 @@ def cmd_check(args: argparse.Namespace) -> int:
         }
         print(json.dumps(payload, indent=2))
     elif args.format == "md":
-        print(render_md(findings) if findings else "| severity | kind | key | detail |\n| --- | --- | --- | --- |\n| ok | — | — | no drift |")
+        print(
+            render_md(findings)
+            if findings
+            else "| severity | kind | key | detail |\n| --- | --- | --- | --- |\n| ok | — | — | no drift |"
+        )
     else:
         print(f"envlens {example.path} vs {actual.path}")
         print(render_text(findings) if findings else "  ok           no drift")

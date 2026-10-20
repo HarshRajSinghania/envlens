@@ -51,7 +51,7 @@ issue "ci: add a coverage gate" \
 **Done when** — a PR that deletes tests goes red.
 **Scope** — workflow only.'
 
-issue "docs: write a 300-word tutorial for {{KEYWORD}}" \
+issue "docs: write a 300-word tutorial for env drift in CI" \
 '**What** — `docs/tutorial.md`, problem → install → run → result.
 **Where** — new file, linked from README.
 **Done when** — a reader with no context can follow it end to end.
