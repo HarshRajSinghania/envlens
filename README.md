@@ -1,8 +1,7 @@
 # envlens
 
 [![CI](https://github.com/n5za/envlens/actions/workflows/ci.yml/badge.svg)](https://github.com/n5za/envlens/actions/workflows/ci.yml)
-[![PyPI](https://img.shields.io/pypi/v/envlens)](https://pypi.org/project/envlens/)
-[![Python](https://img.shields.io/pypi/pyversions/envlens)](https://pypi.org/project/envlens/)
+[![Python](https://img.shields.io/badge/python-3.9%2B-blue)](pyproject.toml)
 [![License](https://img.shields.io/github/license/n5za/envlens)](LICENSE)
 
 **Find the env var that is missing before your deploy does.**
