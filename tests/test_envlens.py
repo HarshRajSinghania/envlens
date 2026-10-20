@@ -218,6 +218,18 @@ class CliTests(unittest.TestCase):
         self.assertEqual(code, 2)
         self.assertIn("file not found", err)
 
+    def test_parse_error_exit_2_not_1(self) -> None:
+        bad = self.write("bad.env", "NOT A LINE\n")
+        code, out, _ = self.run_cli(["check", "--example", str(bad), "--actual", str(bad)])
+        self.assertEqual(code, 2)
+        self.assertIn("not a KEY=VALUE line", out)
+
+    def test_duplicate_parse_error_reported_once(self) -> None:
+        dup = self.write("dup.env", "A=1\nA=2\n")
+        code, out, _ = self.run_cli(["check", "--example", str(dup), "--actual", str(dup)])
+        self.assertEqual(code, 2)
+        self.assertEqual(out.count("duplicate key"), 1)
+
     def test_mask_hides_secret(self) -> None:
         code, out, _ = self.run_cli(["mask", str(self.actual)])
         self.assertEqual(code, 0)

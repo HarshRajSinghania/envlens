@@ -222,7 +222,11 @@ class Finding:
 
 def check(example: EnvFile, actual: EnvFile, strict: bool, allow_extra: bool) -> list[Finding]:
     findings: list[Finding] = []
-    for err in actual.errors + example.errors:
+    seen: set[str] = set()
+    for err in [*actual.errors, *example.errors]:
+        if err in seen:
+            continue
+        seen.add(err)
         findings.append(Finding("parse", "-", err, "error"))
 
     for key, entry in example.entries.items():
@@ -341,6 +345,7 @@ def cmd_check(args: argparse.Namespace) -> int:
     findings = check(example, actual, strict=args.strict, allow_extra=args.allow_extra)
     errors = sum(1 for f in findings if f.severity == "error")
     warnings = len(findings) - errors
+    parse_failed = any(f.kind == "parse" for f in findings)
 
     if args.format == "json":
         payload = {
@@ -360,6 +365,9 @@ def cmd_check(args: argparse.Namespace) -> int:
         print(render_text(findings) if findings else "  ok           no drift")
         print(f"\n{errors} error(s), {warnings} warning(s)")
 
+    # parse failure is not drift: a broken file must never read as a clean pass
+    if parse_failed:
+        return EXIT_USAGE
     return EXIT_DRIFT if errors else EXIT_OK
 
 
