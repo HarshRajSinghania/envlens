@@ -247,5 +247,40 @@ class CliTests(unittest.TestCase):
         self.assertEqual(ctx.exception.code, 0)
 
 
+
+    def test_multiple_actual_one_clean_one_drift(self) -> None:
+        clean = self.write("clean.env", "HOST=x
+PORT=5432
+SECRET_KEY=abc
+")
+        drift = self.write("drift.env", "HOST=x
+")  # missing PORT and SECRET_KEY
+        code, out, _ = self.run_cli([
+            "check", "--example", str(self.example),
+            "--actual", str(clean), "--actual", str(drift)
+        ])
+        self.assertEqual(code, 1)  # worst is drift
+        self.assertIn(str(drift), out)
+        self.assertIn("missing", out)
+
+    def test_multiple_actual_json(self) -> None:
+        clean = self.write("clean.env", "HOST=x
+PORT=5432
+SECRET_KEY=abc
+")
+        drift = self.write("drift.env", "HOST=x
+")
+        code, out, _ = self.run_cli([
+            "check", "--example", str(self.example),
+            "--actual", str(clean), "--actual", str(drift),
+            "--format", "json"
+        ])
+        self.assertEqual(code, 1)
+        payload = json.loads(out)
+        self.assertFalse(payload["ok"])
+        self.assertEqual(len(payload["actuals"]), 2)
+        sources = {f.get("source") for f in payload["findings"]}
+        self.assertIn(str(drift), sources)
+
 if __name__ == "__main__":
     unittest.main()

@@ -215,9 +215,13 @@ class Finding:
     key: str
     detail: str
     severity: str  # error | warning
+    source: str = ""  # path of the actual file this finding comes from
 
     def as_dict(self) -> dict[str, str]:
-        return {"kind": self.kind, "key": self.key, "detail": self.detail, "severity": self.severity}
+        d = {"kind": self.kind, "key": self.key, "detail": self.detail, "severity": self.severity}
+        if self.source:
+            d["source"] = self.source
+        return d
 
 
 def check(example: EnvFile, actual: EnvFile, strict: bool, allow_extra: bool) -> list[Finding]:
@@ -339,12 +343,22 @@ def _load(path_str: str) -> EnvFile:
 def cmd_check(args: argparse.Namespace) -> int:
     try:
         example = _load(args.example)
-        actual = _load(args.actual)
+        actual_paths = args.actual if args.actual else [".env"]
+        actuals = [_load(p) for p in actual_paths]
     except ParseError as exc:
         print(f"envlens: {exc}", file=sys.stderr)
         return EXIT_USAGE
 
-    findings = check(example, actual, strict=args.strict, allow_extra=args.allow_extra)
+    all_findings: list[Finding] = []
+    for actual in actuals:
+        findings = check(example, actual, strict=args.strict, allow_extra=args.allow_extra)
+        for f in findings:
+            f.source = str(actual.path)
+            if f.detail and not str(actual.path) in f.detail:
+                f.detail = f"{actual.path}: {f.detail}"
+        all_findings.extend(findings)
+
+    findings = all_findings
     errors = sum(1 for f in findings if f.severity == "error")
     warnings = len(findings) - errors
     parse_failed = any(f.kind == "parse" for f in findings)
@@ -353,7 +367,7 @@ def cmd_check(args: argparse.Namespace) -> int:
         payload = {
             "command": "check",
             "example": str(example.path),
-            "actual": str(actual.path),
+            "actuals": [str(a.path) for a in actuals],
             "ok": errors == 0,
             "errors": errors,
             "warnings": warnings,
@@ -364,12 +378,16 @@ def cmd_check(args: argparse.Namespace) -> int:
         print(
             render_md(findings)
             if findings
-            else "| severity | kind | key | detail |\n| --- | --- | --- | --- |\n| ok | — | — | no drift |"
+            else "| severity | kind | key | detail |
+| --- | --- | --- | --- |
+| ok | — | — | no drift |"
         )
     else:
-        print(f"envlens {example.path} vs {actual.path}")
+        paths = ", ".join(str(a.path) for a in actuals)
+        print(f"envlens {example.path} vs {paths}")
         print(render_text(findings) if findings else "  ok           no drift")
-        print(f"\n{errors} error(s), {warnings} warning(s)")
+        print(f"
+{errors} error(s), {warnings} warning(s)")
 
     # parse failure is not drift: a broken file must never read as a clean pass
     if parse_failed:
@@ -440,7 +458,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     p_check = sub.add_parser("check", help="compare an environment against the documented example")
     p_check.add_argument("--example", default=".env.example")
-    p_check.add_argument("--actual", default=".env")
+    p_check.add_argument("--actual", action="append", help="actual env file (repeatable; default .env)")
     p_check.add_argument("--strict", action="store_true", help="treat warnings as errors")
     p_check.add_argument("--allow-extra", action="store_true", help="ignore undocumented keys")
     p_check.add_argument("--format", choices=["text", "json", "md"], default="text")

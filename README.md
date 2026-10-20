@@ -25,6 +25,8 @@ python envlens.py --help
 
 ```bash
 envlens check --example .env.example --actual .env
+# or multiple actuals:
+envlens check --example .env.example --actual .env --actual .env.local
 ```
 
 Real output, against the files in [`examples/`](examples):
